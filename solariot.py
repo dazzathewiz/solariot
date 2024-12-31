@@ -518,7 +518,7 @@ def publish_mqtt(inverter):
         config.mqtt_topic, json.dumps(inverter).replace('"', '\"'))
     result.wait_for_publish()
 
-    if result.rc != mqtt.MQTT_ERR_SUCCESS:
+    if result.rc != mqttClient.MQTT_ERR_SUCCESS:
         # See https://github.com/eclipse/paho.mqtt.python/blob/master/src/paho/mqtt/client.py#L149 for error code mapping
         logging.error(
             f"Failed to publish to MQTT with error code: {result.rc}")
