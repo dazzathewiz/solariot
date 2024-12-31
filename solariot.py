@@ -31,7 +31,8 @@ from threading import Thread
 
 from prometheus_client import start_http_server, Gauge
 
-import paho.mqtt.client as mqtt
+import paho.mqtt
+import paho.mqtt.client as mqttClient
 import datetime
 import requests
 import argparse
@@ -125,9 +126,9 @@ logging.info("Connected")
 # Configure MQTT
 if hasattr(config, "mqtt_server"):
     if paho.mqtt.__version__[0] > '1':
-        mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, getattr(config, "mqtt_client_name", "pv_data"))
+        mqtt_client = mqttClient.Client(mqttClient.CallbackAPIVersion.VERSION1, getattr(config, "mqtt_client_name", "pv_data"))
     else:
-        mqtt_client = mqtt.Client(getattr(config, "mqtt_client_name", "pv_data"))
+        mqtt_client = mqttClient.Client(getattr(config, "mqtt_client_name", "pv_data"))
 
     if hasattr(config, "mqtt_username") and hasattr(config, "mqtt_password"):
         mqtt_client.username_pw_set(config.mqtt_username, config.mqtt_password)
