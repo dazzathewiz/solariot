@@ -188,6 +188,9 @@ if hasattr(config, "influxdb_ip"):
         verify_ssl=config.influxdb_verify_ssl,
     )
 
+    # Ensure the DB specified is created in InfluxDB
+    flux_client.create_database(config.influxdb_database)
+
     logging.info("Configured InfluxDB Client")
 else:
     flux_client = None
