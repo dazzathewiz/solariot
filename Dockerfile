@@ -4,6 +4,7 @@ WORKDIR /solariot
 
 RUN addgroup -g 2000 solariot && adduser -D -u 2000 -G solariot solariot
 COPY . /solariot/
+RUN chown -R solariot:solariot /solariot
 RUN apk add --no-cache gcc musl-dev && pip3 install --no-cache-dir --upgrade -r requirements.txt && apk del --no-cache gcc musl-dev
 
 USER solariot
